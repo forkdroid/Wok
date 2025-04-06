@@ -1,0 +1,619 @@
+/* Base styles and variables */
+:root {
+    --dark-bg: #0d1117;
+    --accent: #ffffff;
+    --secondary-accent: #b4bbc2;
+    --text: #ffffff;
+    --highlight: #f778ba;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', 'Quicksand', sans-serif;
+    color: var(--text);
+    background-color: var(--dark-bg);
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Space background animation */
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+
+/* Shooting stars animation */
+@keyframes tail {
+    0% { width: 0; }
+    30% { width: 100px; }
+    100% { width: 0; }
+}
+
+@keyframes shining {
+    0% { width: 0; }
+    50% { width: 30px; }
+    100% { width: 0; }
+}
+
+@keyframes shooting {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        transform: translateX(300px) translateY(300px);
+    }
+}
+
+/* Planet rotation animation */
+@keyframes rotate {
+    from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+}
+
+.stars, .twinkling, .clouds, .shooting-stars, .planets {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.stars {
+    background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+    z-index: -5;
+}
+
+.twinkling {
+    background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
+    z-index: -4;
+    animation: move-twink-back 200s linear infinite;
+}
+
+.clouds {
+    background: transparent url('https://i.imgur.com/mHbScrQ.png') repeat top center;
+    z-index: -3;
+    opacity: 0.2;
+    animation: move-clouds-back 150s linear infinite;
+}
+
+/* Shooting stars */
+.shooting-stars {
+    z-index: -2;
+    pointer-events: none;
+}
+
+.shooting-star {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px #699bff);
+    animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+}
+
+.shooting-star::before, .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 0;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(0, 0, 255, 0), #5f91ff, rgba(0, 0, 255, 0));
+    border-radius: 100%;
+    transform: translateX(50%) rotateZ(45deg);
+    animation: shining 3s ease-in-out infinite;
+}
+
+.shooting-star::after {
+    transform: translateX(50%) rotateZ(-45deg);
+}
+
+.shooting-star:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shooting-star:nth-child(2) {
+    top: 30%;
+    left: 40%;
+    animation-delay: 1.2s;
+}
+
+.shooting-star:nth-child(3) {
+    top: 60%;
+    left: 20%;
+    animation-delay: 2.5s;
+}
+
+.shooting-star:nth-child(4) {
+    top: 20%;
+    left: 70%;
+    animation-delay: 4s;
+}
+
+.shooting-star:nth-child(5) {
+    top: 70%;
+    left: 80%;
+    animation-delay: 5.5s;
+}
+
+/* Planets */
+.planets {
+    z-index: -1;
+    pointer-events: none;
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.planet-center {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.planet-1 {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(to right, #ff9e7a, #ff4e50);
+    box-shadow: 0 0 20px rgba(255, 78, 80, 0.6);
+    animation: rotate 25s linear infinite;
+}
+
+.planet-2 {
+    width: 25px;
+    height: 25px;
+    background: linear-gradient(to right, #7affdb, #00b3a4);
+    box-shadow: 0 0 15px rgba(0, 179, 164, 0.6);
+    animation: rotate 18s linear infinite reverse;
+}
+
+.planet-3 {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to right, #ffd27a, #ffb84d);
+    box-shadow: 0 0 25px rgba(255, 184, 77, 0.5);
+    opacity: 0.7;
+    animation: rotate 40s linear infinite;
+}
+
+/* Container and sections */
+.container {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+section.active {
+    opacity: 1;
+}
+
+section:not(.active) {
+    display: none;
+}
+
+/* Typography */
+h1, h2 {
+    font-family: 'Poppins', 'Comfortaa', cursive;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.birthday-title {
+    font-size: 5rem;
+    color: var(--accent);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    animation: pulse 2s infinite;
+    font-weight: 700;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--secondary-accent);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+h2 {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+/* Navigation buttons */
+.nav-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--dark-bg);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    font-family: 'Poppins', 'Comfortaa', cursive;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn:hover {
+    background-color: var(--highlight);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(247, 120, 186, 0.6);
+}
+
+/* Gallery section styles */
+.slider-container {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    margin: 2rem auto;
+    height: 600px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.slider {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide img {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+}
+
+.slide-message {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(13, 17, 23, 0.8);
+    padding: 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--text);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-btn.prev {
+    left: 15px;
+}
+
+.slider-btn.next {
+    right: 15px;
+}
+
+.slider-btn:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Timer styles */
+.timer-container {
+    margin: 2rem 0;
+}
+
+.current-date {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.08);
+    display: inline-block;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.countdown-target {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-top: 0.5rem;
+    color: var(--highlight);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.timer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.time-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    min-width: 100px;
+}
+
+.time-block span:first-child {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.time-label {
+    font-size: 0.9rem;
+    color: var(--secondary-accent);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Celebration styles */
+.celebration-message {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: scaleIn 1s ease-out;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.celebration-message h3 {
+    font-size: 3rem;
+    color: var(--highlight);
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(247, 120, 186, 0.7);
+}
+
+.celebration-message p {
+    font-size: 1.5rem;
+    color: var(--secondary-accent);
+}
+
+.flower-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin: 2rem 0;
+    overflow: hidden;
+}
+
+.flower {
+    position: absolute;
+    bottom: -20px;
+    width: 60px;
+    height: 60px;
+    animation: growFlower 2s ease-out forwards, sway 3s ease-in-out infinite;
+    transform-origin: bottom center;
+}
+
+@keyframes growFlower {
+    from { transform: translateY(100%) scale(0); }
+    to { transform: translateY(0) scale(1); }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.flower-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background-color: #ffc107;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.petal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    border-radius: 50% 50% 0 50%;
+    transform-origin: bottom left;
+    z-index: 1;
+}
+
+/* Cake styles */
+.cake {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem auto;
+}
+
+.plate {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.cake-bottom {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 60px;
+    background-color: #f06292;
+    border-radius: 10px;
+}
+
+.cake-middle {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    height: 40px;
+    background-color: #ec407a;
+    border-radius: 10px;
+}
+
+.cake-top {
+    position: absolute;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 30px;
+    background-color: #d81b60;
+    border-radius: 10px;
+}
+
+.candle {
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 40px;
+    background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+    border-radius: 5px;
+    z-index: 1;
+}
+
+.flame {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 30px;
+    background: linear-gradient(to bottom, #ffeb3b, #ff9800);
+    border-radius: 50% 50% 20% 20%;
+    box-shadow: 0 0 20px #ff9800, 0 0 40px #ffeb3b;
+    animation: flicker 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: translateX(-52%) scale(0.95, 1.1);
+        opacity: 0.8;
+    }
+}
+
+.blow-btn {
+    margin-top: 2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .birthday-title {
+        font-size: 3rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .slider-container {
+        height: 400px;
+    }
+    
+    .timer {
+        flex-wrap: wrap;
+    }
+    
+    .cake {
+        transform: scale(0.8);
+    }
+} 

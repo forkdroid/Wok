@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chindu's Birthday</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;700&family=Comfortaa:wght@400;700&family=Quicksand:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
+    
+    <!-- Shooting stars -->
+    <div class="shooting-stars">
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+    
+    <!-- Orbiting planets -->
+    <div class="planets">
+        <div class="planet-center">
+            <div class="planet planet-1"></div>
+        </div>
+        <div class="planet-center">
+            <div class="planet planet-2"></div>
+        </div>
+        <div class="planet-center">
+            <div class="planet planet-3"></div>
+        </div>
+    </div>
+    
+    <main class="container">
+        <section class="wish-section" id="wish-section">
+            <h1 class="birthday-title">Happy Birthday Chindu!</h1>
+            <p class="subtitle">ലോകത്തിലെ മുഴുവൻ സന്തോഷവും നിനക്കായ് ആഗ്രഹിക്കുന്നു</p>
+            <button class="nav-btn" id="to-gallery">See your gallery</button>
+        </section>
+
+        <section class="gallery-section" id="gallery-section">
+            <h2>My favourite Memories</h2>
+            <div class="slider-container">
+                <div class="slider">
+                    <!-- Images and messages will be added by JavaScript -->
+                </div>
+                <button class="slider-btn prev" id="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next" id="next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <button class="nav-btn" id="to-cake">Blow out your candles</button>
+        </section>
+
+        <section class="cake-section" id="cake-section">
+            <h2>Make a Wish</h2>
+            <div class="timer-container">
+                <div class="timer" id="timer">
+                    <div class="time-block">
+                        <span id="days">00</span>
+                        <span class="time-label">Days</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="hours">00</span>
+                        <span class="time-label">Hours</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="minutes">00</span>
+                        <span class="time-label">Minutes</span>
+                    </div>
+                    <div class="time-block">
+                        <span id="seconds">00</span>
+                        <span class="time-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+            <div class="cake">
+                <div class="plate"></div>
+                <div class="cake-bottom"></div>
+                <div class="cake-middle"></div>
+                <div class="cake-top"></div>
+                <div class="candle">
+                    <div class="flame" id="flame"></div>
+                </div>
+            </div>
+            <button class="nav-btn blow-btn" id="blow-btn">Blow Candle</button>
+            <button class="nav-btn" id="back-to-top">Back to Top</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html> 
